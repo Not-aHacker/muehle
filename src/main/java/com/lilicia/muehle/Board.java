@@ -20,6 +20,15 @@ public class Board {
 //            lines.set(i, new Line())
         }
 
+        for (int i = 0; i < 24; i += 3) {
+            List<Position> pos = new ArrayList<>();
+            pos.add(this.positions.get(i));
+            pos.add(this.positions.get(i + 1));
+            pos.add(this.positions.get(i + 2));
+
+            lines.add(new Line(pos));
+        }
+
         // 2nd loop
         // (1,10,22), (4,11,19), (7,12,16),
         // (2,5,8), (17,20,23), (9,13,18),
