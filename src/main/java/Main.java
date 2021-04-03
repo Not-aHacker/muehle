@@ -16,7 +16,7 @@ public class Main {
             turn = i % 2 == 0 ? Stone.WHITE : Stone.BLACK;
             System.out.print("Enter your position (1-24 for " + turn.name() + "): ");
             pos = scanner.nextInt();
-            // board.placeStone(turn, pos);
+            board.placeStone(turn, pos -1);
         }
 
         System.out.println("End");

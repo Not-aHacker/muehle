@@ -2,7 +2,8 @@ package com.lilicia.muehle;
 
 public class Position {
     private Stone status;
-    public Position(){
+
+    public Position() {
         status = Stone.EMPTY;
     }
 
@@ -17,7 +18,16 @@ public class Position {
         }
         return '.';
     }
-    public void updateStatus(){
-
+    public void updateStatus(Stone newStatus) {
+        switch (newStatus) {
+            case BLACK:
+                status = Stone.BLACK;
+                break;
+            case WHITE:
+                status = Stone.WHITE;
+                break;
+            case EMPTY:
+                status = Stone.EMPTY;
+        }
     }
 }

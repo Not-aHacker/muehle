@@ -28,7 +28,7 @@ public class Board {
 
             lines.add(new Line(pos));
         }
-        int[] arr = {0,9,21,3,10,18,6,11,15,1,4,7,16,19,22,8,12,17,5,13,20,2,14,23};
+        int[] arr = {0, 9, 21, 3, 10, 18, 6, 11, 15, 1, 4, 7, 16, 19, 22, 8, 12, 17, 5, 13, 20, 2, 14, 23};
         for (int i = 0; i < 24; i += 3) {
             List<Position> pos = new ArrayList<>();
             pos.add(this.positions.get(arr[i]));
@@ -37,6 +37,8 @@ public class Board {
 
             lines.add(new Line(pos));
         }
+
+
         // 2nd loop
         // (1,10,22), (4,11,19), (7,12,16),
         // (2,5,8), (17,20,23), (9,13,18),
@@ -58,5 +60,7 @@ public class Board {
         System.out.println("|           |           |");
         System.out.println(positions.get(21).getChar()+"___________"+positions.get(22).getChar()+"___________"+positions.get(23).getChar());
     }
-
+    public void placeStone(Stone turn, int position){
+        positions.get(position).updateStatus(turn);
+    }
 }
