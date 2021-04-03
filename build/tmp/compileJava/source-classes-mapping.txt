@@ -2,3 +2,9 @@ Main.java
  Main
 com/lilicia/muehle/Board.java
  com.lilicia.muehle.Board
+com/lilicia/muehle/Line.java
+ com.lilicia.muehle.Line
+com/lilicia/muehle/Stone.java
+ com.lilicia.muehle.Stone
+com/lilicia/muehle/Position.java
+ com.lilicia.muehle.Position
