@@ -11,12 +11,13 @@ public class Position {
         status = Stone.EMPTY;
         listOfLines = new ArrayList<>();
     }
-    public Stone getStatus(){
+
+    public Stone getStatus() {
         return this.status;
     }
 
     public char getChar() {
-        switch (status){
+        switch (status) {
             case BLACK:
                 return 'X';
             case WHITE:
@@ -26,6 +27,7 @@ public class Position {
         }
         return '.';
     }
+
     public boolean updateStatus(Stone newStatus) {
         switch (newStatus) {
             case BLACK:
@@ -40,16 +42,25 @@ public class Position {
         return listOfLines.get(0).isMuehle() || listOfLines.get(1).isMuehle();
     }
 
-    public void setLine(Line line){
+    public void setLine(Line line) {
         listOfLines.add(line);
     }
-    public boolean movePossible(char direction){
-        if (direction == 'L' || direction == 'R'){
-           return listOfLines.get(0).movePossible(this, direction);
+
+    public boolean movePossible(char direction) {
+        if (direction == 'L' || direction == 'R') {
+            return listOfLines.get(0).movePossible(this, direction);
         }
-        if (direction == 'U' || direction == 'D'){
+        if (direction == 'U' || direction == 'D') {
             return listOfLines.get(1).movePossible(this, direction);
         }
         return false;
+    }
+
+    public Line getHorLine() {
+        return this.listOfLines.get(0);
+    }
+
+    public Line getVerLine() {
+        return this.listOfLines.get(1);
     }
 }

@@ -6,8 +6,11 @@ import java.util.List;
 public class Board {
     private List<Line> lines;
     private List<Position> positions;
+    private int blackStones;
+    private int whiteStones;
 
     public Board() {
+        this.blackStones = this.whiteStones = 0;
         this.positions = new ArrayList<>();
         this.lines = new ArrayList<>();
 
@@ -55,8 +58,17 @@ public class Board {
         // (2,5,8), (17,20,23), (9,13,18),
         // (6,14,21), (3,15,24)
     }
-    public void removeStone(int position){
-        this.positions.get(position).updateStatus(Stone.EMPTY);
+
+    public void removeStone(int position) {
+        Position pos = this.positions.get(position);
+        Stone color = pos.getStatus();
+        if (color == Stone.BLACK) {
+            --this.blackStones;
+        } else {
+            --this.whiteStones;
+        }
+        pos.updateStatus(Stone.EMPTY);
+
     }
 
     public void print() {
@@ -76,7 +88,48 @@ public class Board {
     }
 
     public boolean placeStone(Stone turn, int position) {
+        if (turn == Stone.BLACK) {
+            ++this.blackStones;
+        } else {
+            ++this.whiteStones;
+        }
         return positions.get(position).updateStatus(turn);
     }
 
+    public boolean moveStone(int position, char direction) {
+        Position pos = this.positions.get(position);
+        if (pos.movePossible(direction)) {
+            Position newPos;
+            switch (direction) {
+                case 'L':
+                    newPos = pos.getHorLine().getNextPos(pos, -1);
+                    break;
+                case 'R':
+                    newPos = pos.getHorLine().getNextPos(pos, 1);
+                    break;
+                case 'U':
+                    newPos = pos.getVerLine().getNextPos(pos, -1);
+                    break;
+                case 'D':
+                    newPos = pos.getVerLine().getNextPos(pos, 1);
+                    break;
+                default:
+                    return false;
+            }
+            Stone curr = pos.getStatus();
+            pos.updateStatus(Stone.EMPTY);
+            newPos.updateStatus(curr);
+            return true;
+        }
+
+        return false;
+    }
+
+    public int getBlackStones() {
+        return blackStones;
+    }
+
+    public int getWhiteStones() {
+        return whiteStones;
+    }
 }

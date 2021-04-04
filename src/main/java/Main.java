@@ -19,13 +19,27 @@ public class Main {
 
 
             // Muehle
-            if (board.placeStone(turn, pos -1)) {
+            if (board.placeStone(turn, pos - 1)) {
                 board.print();
                 System.out.print("Remove position (1-24): ");
                 pos = scanner.nextInt();
-                 board.removeStone(pos - 1);
+                board.removeStone(pos - 1);
             }
         }
+
+        turn = Stone.WHITE;
+        while (board.getBlackStones() > 3 && board.getWhiteStones() > 3) {
+            board.print();
+            System.out.print("Choose position (1-24): ");
+            pos = scanner.nextInt();
+            System.out.print("Choose direction (L,R,U,D): ");
+            char direction = scanner.next().charAt(0);
+            if (!board.moveStone(pos -1, direction)) {
+                continue;
+            }
+            turn = turn == Stone.WHITE ? Stone.BLACK : Stone.WHITE;
+        }
+
 
         System.out.println("End");
     }

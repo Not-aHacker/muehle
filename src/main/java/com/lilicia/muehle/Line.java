@@ -29,4 +29,9 @@ public class Line {
         return false;
     }
 
+    public Position getNextPos(Position curr, int offset) {
+        int index = this.positions.indexOf(curr);
+        return this.positions.get(index + offset);
+    }
+
 }
