@@ -72,8 +72,8 @@ public class Board {
         System.out.println(positions.get(21).getChar() + "___________" + positions.get(22).getChar() + "___________" + positions.get(23).getChar());
     }
 
-    public void placeStone(Stone turn, int position) {
-        positions.get(position).updateStatus(turn);
+    public boolean placeStone(Stone turn, int position) {
+        return positions.get(position).updateStatus(turn);
 
     }
 }
