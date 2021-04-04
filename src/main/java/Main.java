@@ -17,11 +17,13 @@ public class Main {
             System.out.print("Enter your position (1-24 for " + turn.name() + "): ");
             pos = scanner.nextInt();
 
+
             // Muehle
             if (board.placeStone(turn, pos -1)) {
+                board.print();
                 System.out.print("Remove position (1-24): ");
                 pos = scanner.nextInt();
-                // board.removeStone(pos - 1)
+                 board.removeStone(pos - 1);
             }
         }
 

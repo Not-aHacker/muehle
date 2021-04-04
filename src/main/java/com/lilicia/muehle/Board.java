@@ -55,6 +55,9 @@ public class Board {
         // (2,5,8), (17,20,23), (9,13,18),
         // (6,14,21), (3,15,24)
     }
+    public void removeStone(int position){
+        this.positions.get(position).updateStatus(Stone.EMPTY);
+    }
 
     public void print() {
         System.out.println(positions.get(0).getChar() + "___________" + positions.get(1).getChar() + "___________" + positions.get(2).getChar());
