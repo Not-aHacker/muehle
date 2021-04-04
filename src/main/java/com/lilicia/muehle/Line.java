@@ -7,7 +7,10 @@ public class Line {
 
     public Line(List<Position> positions){
         this.positions = positions;
+    }
 
+    public boolean isMuehle() {
+        return false;
     }
 
 }
