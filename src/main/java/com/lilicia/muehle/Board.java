@@ -30,8 +30,8 @@ public class Board {
 
             lines.add(line);
 
-            for (Position p: pos) {
-//                p.setLine(line);
+            for (Position p : pos) {
+                p.setLine(line);
             }
         }
         int[] arr = {0, 9, 21, 3, 10, 18, 6, 11, 15, 1, 4, 7, 16, 19, 22, 8, 12, 17, 5, 13, 20, 2, 14, 23};
@@ -41,7 +41,12 @@ public class Board {
             pos.add(this.positions.get(arr[i + 1]));
             pos.add(this.positions.get(arr[i + 2]));
 
-            lines.add(new Line(pos));
+            Line line = new Line(pos);
+
+            lines.add(line);
+            for (Position p : pos) {
+                p.setLine(line);
+            }
         }
 
 
@@ -66,7 +71,9 @@ public class Board {
         System.out.println("|           |           |");
         System.out.println(positions.get(21).getChar() + "___________" + positions.get(22).getChar() + "___________" + positions.get(23).getChar());
     }
-    public void placeStone(Stone turn, int position){
+
+    public void placeStone(Stone turn, int position) {
         positions.get(position).updateStatus(turn);
+
     }
 }
