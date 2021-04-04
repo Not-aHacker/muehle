@@ -42,6 +42,14 @@ public class Position {
 
     public void setLine(Line line){
         listOfLines.add(line);
-
+    }
+    public boolean movePossible(char direction){
+        if (direction == 'L' || direction == 'R'){
+           return listOfLines.get(0).movePossible(this, direction);
+        }
+        if (direction == 'U' || direction == 'D'){
+            return listOfLines.get(1).movePossible(this, direction);
+        }
+        return false;
     }
 }

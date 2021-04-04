@@ -77,6 +77,6 @@ public class Board {
 
     public boolean placeStone(Stone turn, int position) {
         return positions.get(position).updateStatus(turn);
-
     }
+
 }
