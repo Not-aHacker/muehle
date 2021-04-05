@@ -22,7 +22,6 @@ public class Main {
                 System.out.println("Is not possible please try again.");
                 System.out.print("Enter your position (1-24 for " + turn.name() + "): ");
                 pos = scanner.nextInt();
-
             }
 
             // Muehle
@@ -30,8 +29,14 @@ public class Main {
                 board.print();
                 System.out.print("Remove position (1-24): ");
                 pos = scanner.nextInt();
-                board.removeStone(pos - 1);
+                while ((pos < 1 || pos >24) || (board.removeStone(turn,pos - 1) == false)){
+                    board.print();
+                    System.out.println("Is not possible please try again.");
+                    System.out.print("Remove position (1-24): ");
+                    pos = scanner.nextInt();
+                }
             }
+
         }
 
         turn = Stone.WHITE;

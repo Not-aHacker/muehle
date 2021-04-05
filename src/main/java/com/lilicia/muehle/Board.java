@@ -59,16 +59,19 @@ public class Board {
         // (6,14,21), (3,15,24)
     }
 
-    public void removeStone(int position) {
+    public boolean removeStone(Stone turn,int position) {
         Position pos = this.positions.get(position);
         Stone color = pos.getStatus();
-        if (color == Stone.BLACK) {
-            --this.blackStones;
-        } else {
-            --this.whiteStones;
+        if (color != turn && color != Stone.EMPTY) {
+            if (color == Stone.BLACK) {
+                --this.blackStones;
+            } else {
+                --this.whiteStones;
+            }
+            pos.updateStatus(Stone.EMPTY);
+            return true;
         }
-        pos.updateStatus(Stone.EMPTY);
-
+        return false;
     }
 
     public void print() {
