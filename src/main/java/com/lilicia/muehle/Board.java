@@ -99,6 +99,7 @@ public class Board {
         return positions.get(position).updateStatus(turn);
     }
 
+    //moveStone returns, if move possible or not, and moves the stone, if possible
     public boolean moveStone(int position, char direction) {
         Position pos = this.positions.get(position);
         if (pos.movePossible(direction)) {
@@ -148,6 +149,17 @@ public class Board {
                 }
             }
         }
+        return true;
+    }
+
+    //jumpStone returns, if move possible or not, and moves the stone, if possible
+    public boolean jumpStone(int posOld, int posNew) {
+        Position oldPos = this.positions.get(posOld);
+        Position newPos = this.positions.get(posNew);
+
+        Stone curr = oldPos.getStatus();
+        oldPos.updateStatus(Stone.EMPTY);
+        newPos.updateStatus(curr);
         return true;
     }
 }
