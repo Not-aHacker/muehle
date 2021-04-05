@@ -62,8 +62,8 @@ public class Board {
     public boolean removeStone(Stone turn,int position) {
         Position pos = this.positions.get(position);
         Stone color = pos.getStatus();
-        if (color != turn && color != Stone.EMPTY) {
-            if (color == Stone.BLACK) {
+        if (color != turn && color != Stone.EMPTY && ((!pos.getHorLine().isMuehle() && !pos.getVerLine().isMuehle()) || checkIfAllStonesinMuehle(color))) {
+            if (color == Stone.BLACK) { // problem is that the opponent of the turn person has to be checked and not the turn person itself
                 --this.blackStones;
             } else {
                 --this.whiteStones;
@@ -138,5 +138,16 @@ public class Board {
     public Stone getPosStatus(int position){
         Position pos = this.positions.get(position);
         return pos.getStatus();
+    }
+    public boolean checkIfAllStonesinMuehle(Stone turn){
+        for (int i = 0; i < 24; i++){
+            Position pos = positions.get(i);
+            if (pos.getStatus() == turn){
+                if (!pos.getHorLine().isMuehle() && !pos.getVerLine().isMuehle()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
