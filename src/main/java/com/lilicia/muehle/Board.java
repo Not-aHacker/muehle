@@ -132,4 +132,8 @@ public class Board {
     public int getWhiteStones() {
         return whiteStones;
     }
+    public Stone getPosStatus(int position){
+        Position pos = this.positions.get(position);
+        return pos.getStatus();
+    }
 }

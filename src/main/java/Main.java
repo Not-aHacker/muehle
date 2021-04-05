@@ -17,6 +17,13 @@ public class Main {
             System.out.print("Enter your position (1-24 for " + turn.name() + "): ");
             pos = scanner.nextInt();
 
+            while((pos < 1 || pos >24) || board.getPosStatus(pos - 1) != Stone.EMPTY ){
+                board.print();
+                System.out.println("Is not possible please try again.");
+                System.out.print("Enter your position (1-24 for " + turn.name() + "): ");
+                pos = scanner.nextInt();
+
+            }
 
             // Muehle
             if (board.placeStone(turn, pos - 1)) {
