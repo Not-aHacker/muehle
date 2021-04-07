@@ -29,7 +29,7 @@ public class Main {
                 board.print();
                 System.out.print("Remove position (1-24): ");
                 pos = scanner.nextInt();
-                while ((!isValidPosition(pos)) || (board.removeStone(turn,pos - 1) == false)){
+                while ((!isValidPosition(pos)) || (!board.removeStone(turn, pos - 1))){
                     board.print();
                     System.out.println("Is not possible please try again.");
                     System.out.print("Remove position (1-24): ");
@@ -45,7 +45,7 @@ public class Main {
             if (turn==Stone.WHITE && board.getWhiteStones()>3) {
                 board.print();
                 System.out.print("Choose position White (1-24): ");
-                for (pos = scanner.nextInt();(!isValidPosition(pos) || board.getPosStatus(pos) != turn);){
+                for (pos = scanner.nextInt();(!isValidPosition(pos) || board.getPosStatus(pos - 1) != turn);){
                     board.print();
                     System.out.print("Choose position White (1-24): ");
                     pos = scanner.nextInt();
@@ -53,24 +53,40 @@ public class Main {
 
                 System.out.print("Choose direction White (L,R,U,D): ");
                 char direction = scanner.next().charAt(0);
-                if (!board.moveStone(pos - 1, direction,turn)) {
+                if (!board.moveStone(pos - 1, direction,Stone.WHITE)) {
                     continue;
                 }
             }
             else if (turn==Stone.WHITE && board.getWhiteStones()==3) {
                     board.print();
-                    System.out.print("Choose position (1-24): ");
+                    System.out.print("You may jump now White:Choose position (1-24): ");
+                for (pos = scanner.nextInt();(!isValidPosition(pos) || board.getPosStatus(pos - 1) != turn);){
+                    board.print();
+                    System.out.println("Is not possible please try again");
+                    System.out.print("You may jump now White:Choose position (1-24): ");
                     pos = scanner.nextInt();
-                    System.out.print("Choose new position (1-24): ");
+                }
+
+                    System.out.print("Choose new position White (1-24): ");
                     int newpos = scanner.nextInt();
-                    if (!board.jumpStone(pos - 1, newpos - 1,Stone.WHITE)) {
+                for (newpos = scanner.nextInt();(!isValidPosition(newpos) || board.getPosStatus(newpos - 1) != turn);){
+                    board.print();
+                    System.out.println("Is not possible please try again");
+                    System.out.print("You may jump now Black:Choose position (1-24): ");
+                    pos = scanner.nextInt();
+                }
+                if (!board.jumpStone(pos - 1, newpos - 1,Stone.WHITE)) {
                         continue;
                     }
                 }
             else if (turn==Stone.BLACK && board.getBlackStones()>3) {
                     board.print();
                     System.out.print("Choose position Black (1-24): ");
+                for (pos = scanner.nextInt();(!isValidPosition(pos) || board.getPosStatus(pos - 1) != turn);){
+                    board.print();
+                    System.out.print("Choose position White (1-24): ");
                     pos = scanner.nextInt();
+                }
                     System.out.print("Choose direction Black (L,R,U,D): ");
                     char direction = scanner.next().charAt(0);
                     if (!board.moveStone(pos - 1, direction, Stone.BLACK)) {
@@ -79,11 +95,22 @@ public class Main {
                 }
             else if (turn==Stone.BLACK && board.getBlackStones()==3) {
                     board.print();
-                    System.out.print("Choose position Black (1-24): ");
+                    System.out.print("You may jump now Black:Choose position (1-24): ");
+                for (pos = scanner.nextInt();(!isValidPosition(pos) || board.getPosStatus(pos - 1) != turn);){
+                    board.print();
+                    System.out.println("Is not possible please try again");
+                    System.out.print("You may jump now Black:Choose position (1-24): ");
                     pos = scanner.nextInt();
+                }
                     System.out.print("Choose new position Black (1-24): ");
                     int newpos = scanner.nextInt();
-                    if (!board.jumpStone(pos - 1, newpos - 1, Stone.BLACK)) {
+                for (newpos = scanner.nextInt();(!isValidPosition(newpos) || board.getPosStatus(newpos - 1) != turn);){
+                    board.print();
+                    System.out.println("Is not possible please try again");
+                    System.out.print("You may jump now Black:Choose position (1-24): ");
+                    newpos = scanner.nextInt();
+                }
+                if (!board.jumpStone(pos - 1, newpos - 1, Stone.BLACK)) {
                         continue;
                     }
                 }
@@ -94,7 +121,7 @@ public class Main {
 
         System.out.println("End");
     }
-    private static boolean isValidPosition (int position) {
+    public static boolean isValidPosition (int position) {
         return (0<position && position<25);
     }
 }

@@ -2,8 +2,10 @@ package com.lilicia.muehle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Board {
+    Scanner scanner = new Scanner(System.in);
     private List<Line> lines;
     private List<Position> positions;
     private int blackStones;
@@ -103,7 +105,7 @@ public class Board {
     //moveStone returns, if move possible or not, and moves the stone, if possible
     public boolean moveStone(int position, char direction, Stone turn) {
         Position pos = this.positions.get(position);
-        if (pos.movePossible(direction)) {
+            if (pos.movePossible(direction)) {
             Position newPos;
             switch (direction) {
                 case 'L':
@@ -121,14 +123,14 @@ public class Board {
                 default:
                     return false;
             }
-            if (pos.getStatus() == turn && newPos.getStatus() == Stone.EMPTY) {//checking if the new Position is Empty and if the oldPos is even in the right turn
+
+            if (pos.getStatus() != turn || newPos.getStatus() == Stone.EMPTY) {//checking if the new Position is Empty and if the oldPos is even in the right turn
                 Stone curr = pos.getStatus();
                 pos.updateStatus(Stone.EMPTY);
                 newPos.updateStatus(curr);
                 return true;
             }
         }
-
         return false;
     }
 
@@ -160,7 +162,7 @@ public class Board {
         Position oldPos = this.positions.get(posOld);
         Position newPos = this.positions.get(posNew);
 
-        if (newPos.getStatus() == Stone.EMPTY && oldPos.getStatus() == turn) { //checking if the new Position is Empty and if the oldPos is even in the right turn
+        if (newPos.getStatus() == Stone.EMPTY && oldPos.getStatus() == turn && (posOld >0 && posOld <25) && (posNew>0 && posNew<25)) { //checking if the new Position is Empty and if the oldPos is even in the right turn
             Stone curr = oldPos.getStatus();
             oldPos.updateStatus(Stone.EMPTY);
             newPos.updateStatus(curr);

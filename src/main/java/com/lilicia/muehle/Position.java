@@ -2,6 +2,7 @@ package com.lilicia.muehle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Position {
     private Stone status;
