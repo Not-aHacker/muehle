@@ -52,7 +52,7 @@ public class Main {
 
                 System.out.print("Choose direction (L,R,U,D): ");
                 char direction = scanner.next().charAt(0);
-                if (!board.moveStone(pos - 1, direction)) {
+                if (!board.moveStone(pos - 1, direction,turn)) {
                     continue;
                 }
             }
@@ -62,7 +62,7 @@ public class Main {
                     pos = scanner.nextInt();
                     System.out.print("Choose new position (1-24): ");
                     int newpos = scanner.nextInt();
-                    if (!board.jumpStone(pos - 1, newpos - 1)) {
+                    if (!board.jumpStone(pos - 1, newpos - 1,Stone.WHITE)) {
                         continue;
                     }
                 }
@@ -72,7 +72,7 @@ public class Main {
                     pos = scanner.nextInt();
                     System.out.print("Choose direction (L,R,U,D): ");
                     char direction = scanner.next().charAt(0);
-                    if (!board.moveStone(pos - 1, direction)) {
+                    if (!board.moveStone(pos - 1, direction, Stone.BLACK)) {
                         continue;
                     }
                 }
@@ -82,7 +82,7 @@ public class Main {
                     pos = scanner.nextInt();
                     System.out.print("Choose new position (1-24): ");
                     int newpos = scanner.nextInt();
-                    if (!board.jumpStone(pos - 1, newpos - 1)) {
+                    if (!board.jumpStone(pos - 1, newpos - 1, Stone.BLACK)) {
                         continue;
                     }
                 }

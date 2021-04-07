@@ -59,11 +59,11 @@ public class Board {
         // (6,14,21), (3,15,24)
     }
 
-    public boolean removeStone(Stone turn,int position) {
+    public boolean removeStone(Stone turn,int position) { //removes stone and checks if the position that you want to remove is even available to remove
         Position pos = this.positions.get(position);
         Stone color = pos.getStatus();
         if (color != turn && color != Stone.EMPTY && ((!pos.getHorLine().isMuehle() && !pos.getVerLine().isMuehle()) || checkIfAllStonesinMuehle(color))) {
-            if (color == Stone.BLACK) { // problem is that the opponent of the turn person has to be checked and not the turn person itself
+            if (color == Stone.BLACK) {
                 --this.blackStones;
             } else {
                 --this.whiteStones;
@@ -74,6 +74,7 @@ public class Board {
         return false;
     }
 
+    // BOARD
     public void print() {
         System.out.println(positions.get(0).getChar() + "___________" + positions.get(1).getChar() + "___________" + positions.get(2).getChar());
         System.out.println("|           |           |");
@@ -90,7 +91,7 @@ public class Board {
         System.out.println(positions.get(21).getChar() + "___________" + positions.get(22).getChar() + "___________" + positions.get(23).getChar());
     }
 
-    public boolean placeStone(Stone turn, int position) {
+    public boolean placeStone(Stone turn, int position) { // places stone and checks if it is true or false
         if (turn == Stone.BLACK) {
             ++this.blackStones;
         } else {
@@ -100,7 +101,7 @@ public class Board {
     }
 
     //moveStone returns, if move possible or not, and moves the stone, if possible
-    public boolean moveStone(int position, char direction) {
+    public boolean moveStone(int position, char direction, Stone turn) {
         Position pos = this.positions.get(position);
         if (pos.movePossible(direction)) {
             Position newPos;
@@ -120,10 +121,12 @@ public class Board {
                 default:
                     return false;
             }
-            Stone curr = pos.getStatus();
-            pos.updateStatus(Stone.EMPTY);
-            newPos.updateStatus(curr);
-            return true;
+            if (pos.getStatus() == turn && newPos.getStatus() == Stone.EMPTY) {//checking if the new Position is Empty and if the oldPos is even in the right turn
+                Stone curr = pos.getStatus();
+                pos.updateStatus(Stone.EMPTY);
+                newPos.updateStatus(curr);
+                return true;
+            }
         }
 
         return false;
@@ -136,11 +139,11 @@ public class Board {
     public int getWhiteStones() {
         return whiteStones;
     }
-    public Stone getPosStatus(int position){
+    public Stone getPosStatus(int position){ //get the status of the position so main can use it
         Position pos = this.positions.get(position);
         return pos.getStatus();
     }
-    public boolean checkIfAllStonesinMuehle(Stone turn){
+    public boolean checkIfAllStonesinMuehle(Stone turn){ // checks if all Stones of the OPPONENT is in a Muehle
         for (int i = 0; i < 24; i++){
             Position pos = positions.get(i);
             if (pos.getStatus() == turn){
@@ -153,13 +156,16 @@ public class Board {
     }
 
     //jumpStone returns, if move possible or not, and moves the stone, if possible
-    public boolean jumpStone(int posOld, int posNew) {
+    public boolean jumpStone(int posOld, int posNew, Stone turn) {
         Position oldPos = this.positions.get(posOld);
         Position newPos = this.positions.get(posNew);
 
-        Stone curr = oldPos.getStatus();
-        oldPos.updateStatus(Stone.EMPTY);
-        newPos.updateStatus(curr);
-        return true;
+        if (newPos.getStatus() == Stone.EMPTY && oldPos.getStatus() == turn) { //checking if the new Position is Empty and if the oldPos is even in the right turn
+            Stone curr = oldPos.getStatus();
+            oldPos.updateStatus(Stone.EMPTY);
+            newPos.updateStatus(curr);
+            return true;
+        }
+        return false;
     }
 }

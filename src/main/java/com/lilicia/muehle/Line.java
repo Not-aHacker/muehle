@@ -9,7 +9,7 @@ public class Line {
         this.positions = positions;
     }
 
-    public boolean isMuehle() {
+    public boolean isMuehle() { // checks if it is Muehle
         if (this.positions.get(0).getStatus() == Stone.BLACK) {
             return this.positions.get(1).getStatus() == Stone.BLACK && this.positions.get(2).getStatus() == Stone.BLACK;
         }
@@ -18,7 +18,7 @@ public class Line {
         }
         return false;
     }
-    public boolean movePossible(Position pos, char direction){
+    public boolean movePossible(Position pos, char direction){ // checks if you can move
         int index = this.positions.indexOf(pos);
         if (direction == 'U' || direction =='L'){
             return index != 0 && this.positions.get(index - 1).getStatus()== Stone.EMPTY;
@@ -29,7 +29,7 @@ public class Line {
         return false;
     }
 
-    public Position getNextPos(Position curr, int offset) {
+    public Position getNextPos(Position curr, int offset) { //getting the nextPosition
         int index = this.positions.indexOf(curr);
         return this.positions.get(index + offset);
     }
