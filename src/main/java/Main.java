@@ -39,18 +39,19 @@ public class Main {
 
         }
 
+
         turn = Stone.WHITE;
         while (board.getBlackStones() > 2 && board.getWhiteStones() > 2) {
             if (turn==Stone.WHITE && board.getWhiteStones()>3) {
                 board.print();
-                System.out.print("Choose position (1-24): ");
+                System.out.print("Choose position White (1-24): ");
                 for (pos = scanner.nextInt();(!isValidPosition(pos) || board.getPosStatus(pos) != turn);){
                     board.print();
-                    System.out.print("Choose position (1-24): ");
+                    System.out.print("Choose position White (1-24): ");
                     pos = scanner.nextInt();
                 }
 
-                System.out.print("Choose direction (L,R,U,D): ");
+                System.out.print("Choose direction White (L,R,U,D): ");
                 char direction = scanner.next().charAt(0);
                 if (!board.moveStone(pos - 1, direction,turn)) {
                     continue;
@@ -68,9 +69,9 @@ public class Main {
                 }
             else if (turn==Stone.BLACK && board.getBlackStones()>3) {
                     board.print();
-                    System.out.print("Choose position (1-24): ");
+                    System.out.print("Choose position Black (1-24): ");
                     pos = scanner.nextInt();
-                    System.out.print("Choose direction (L,R,U,D): ");
+                    System.out.print("Choose direction Black (L,R,U,D): ");
                     char direction = scanner.next().charAt(0);
                     if (!board.moveStone(pos - 1, direction, Stone.BLACK)) {
                         continue;
@@ -78,9 +79,9 @@ public class Main {
                 }
             else if (turn==Stone.BLACK && board.getBlackStones()==3) {
                     board.print();
-                    System.out.print("Choose position (1-24): ");
+                    System.out.print("Choose position Black (1-24): ");
                     pos = scanner.nextInt();
-                    System.out.print("Choose new position (1-24): ");
+                    System.out.print("Choose new position Black (1-24): ");
                     int newpos = scanner.nextInt();
                     if (!board.jumpStone(pos - 1, newpos - 1, Stone.BLACK)) {
                         continue;
