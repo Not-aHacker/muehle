@@ -39,7 +39,7 @@ public class Main {
 
         }
 
-
+//snd phase
         turn = Stone.WHITE;
         while (board.getBlackStones() > 2 && board.getWhiteStones() > 2) {
             if (turn==Stone.WHITE && board.getWhiteStones()>3) {
@@ -53,8 +53,19 @@ public class Main {
 
                 System.out.print("Choose direction White (L,R,U,D): ");
                 char direction = scanner.next().charAt(0);
-                if (!board.moveStone(pos - 1, direction,Stone.WHITE)) {
+                if (!board.getPosition(pos - 1).movePossible(direction)){
                     continue;
+                }
+                if (board.moveStone(pos - 1, direction,Stone.WHITE)) {
+                    board.print();
+                    System.out.print("Remove position (1-24): ");
+                    pos = scanner.nextInt();
+                    while ((!isValidPosition(pos)) || (!board.removeStone(turn, pos - 1))){
+                        board.print();
+                        System.out.println("Is not possible please try again.");
+                        System.out.print("Remove position (1-24): ");
+                        pos = scanner.nextInt();
+                    }
                 }
             }
             else if (turn==Stone.WHITE && board.getWhiteStones()==3) {
@@ -89,9 +100,21 @@ public class Main {
                 }
                     System.out.print("Choose direction Black (L,R,U,D): ");
                     char direction = scanner.next().charAt(0);
-                    if (!board.moveStone(pos - 1, direction, Stone.BLACK)) {
-                        continue;
+
+                    if (!board.getPosition(pos - 1).movePossible(direction)){
+                    continue;
+                }
+                if (board.moveStone(pos - 1, direction,Stone.WHITE)) {
+                    board.print();
+                    System.out.print("Remove position (1-24): ");
+                    pos = scanner.nextInt();
+                    while ((!isValidPosition(pos)) || (!board.removeStone(turn, pos - 1))){
+                        board.print();
+                        System.out.println("Is not possible please try again.");
+                        System.out.print("Remove position (1-24): ");
+                        pos = scanner.nextInt();
                     }
+                }
                 }
             else if (turn==Stone.BLACK && board.getBlackStones()==3) {
                     board.print();

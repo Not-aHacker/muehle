@@ -61,7 +61,7 @@ public class Board {
         // (6,14,21), (3,15,24)
     }
 
-    public boolean removeStone(Stone turn,int position) { //removes stone and checks if the position that you want to remove is even available to remove
+    public boolean removeStone(Stone turn,int position) { //removes stone and checks if the position that you want to remove is available to remove
         Position pos = this.positions.get(position);
         Stone color = pos.getStatus();
         if (color != turn && color != Stone.EMPTY && ((!pos.getHorLine().isMuehle() && !pos.getVerLine().isMuehle()) || checkIfAllStonesinMuehle(color))) {
@@ -102,8 +102,33 @@ public class Board {
         return positions.get(position).updateStatus(turn);
     }
 
+    public boolean moveStone (int position, char direction, Stone turn) { //move stone and returns if muehle
+        Position pos = this.positions.get(position);
+
+            Position newPos;
+            switch (direction) {
+                case 'L':
+                    newPos = pos.getHorLine().getNextPos(pos, -1);
+                    break;
+                case 'R':
+                    newPos = pos.getHorLine().getNextPos(pos, 1);
+                    break;
+                case 'U':
+                    newPos = pos.getVerLine().getNextPos(pos, -1);
+                    break;
+                case 'D':
+                    newPos = pos.getVerLine().getNextPos(pos, 1);
+                    break;
+                default:
+                    return false;
+            }
+            Stone curr = pos.getStatus();
+            pos.updateStatus(Stone.EMPTY);
+            //if muehle is created
+            return newPos.updateStatus(curr);
+    }
     //moveStone returns, if move possible or not, and moves the stone, if possible
-    public boolean moveStone(int position, char direction, Stone turn) {
+    /*public boolean moveStone(int position, char direction, Stone turn) {
         Position pos = this.positions.get(position);
             if (pos.movePossible(direction)) {
             Position newPos;
@@ -127,13 +152,15 @@ public class Board {
             if (pos.getStatus() != turn || newPos.getStatus() == Stone.EMPTY) {//checking if the new Position is Empty and if the oldPos is even in the right turn
                 Stone curr = pos.getStatus();
                 pos.updateStatus(Stone.EMPTY);
-                newPos.updateStatus(curr);
+                if (newPos.updateStatus(curr)){ //if muehle is created
+
+                }
                 return true;
             }
         }
         return false;
     }
-
+*/
     public int getBlackStones() {
         return blackStones;
     }
@@ -169,5 +196,9 @@ public class Board {
             return true;
         }
         return false;
+    }
+
+    public Position getPosition(int pos) {
+        return positions.get(pos);
     }
 }
