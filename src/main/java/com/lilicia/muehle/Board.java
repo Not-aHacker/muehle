@@ -184,18 +184,14 @@ public class Board {
         return true;
     }
 
-    //jumpStone returns, if move possible or not, and moves the stone, if possible
+    //jumpStone returns, if muehle or not, and moves the stone
     public boolean jumpStone(int posOld, int posNew, Stone turn) {
         Position oldPos = this.positions.get(posOld);
         Position newPos = this.positions.get(posNew);
 
-        if (newPos.getStatus() == Stone.EMPTY && oldPos.getStatus() == turn && (posOld >0 && posOld <25) && (posNew>0 && posNew<25)) { //checking if the new Position is Empty and if the oldPos is even in the right turn
-            Stone curr = oldPos.getStatus();
-            oldPos.updateStatus(Stone.EMPTY);
-            newPos.updateStatus(curr);
-            return true;
-        }
-        return false;
+        Stone curr = oldPos.getStatus();
+        oldPos.updateStatus(Stone.EMPTY);
+        return newPos.updateStatus(curr);
     }
 
     public Position getPosition(int pos) {

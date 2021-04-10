@@ -80,14 +80,22 @@ public class Main {
 
                     System.out.print("Choose new position White (1-24): ");
                     int newpos = scanner.nextInt();
-                for (newpos = scanner.nextInt();(!isValidPosition(newpos) || board.getPosStatus(newpos - 1) != turn);){
+                for (newpos = scanner.nextInt();(!isValidPosition(newpos) || board.getPosStatus(newpos - 1) != Stone.EMPTY);){
                     board.print();
                     System.out.println("Is not possible please try again");
                     System.out.print("You may jump now Black:Choose position (1-24): ");
                     pos = scanner.nextInt();
                 }
-                if (!board.jumpStone(pos - 1, newpos - 1,Stone.WHITE)) {
-                        continue;
+                if (board.jumpStone(pos - 1, newpos - 1,Stone.WHITE)) {
+                    board.print();
+                    System.out.print("Remove position (1-24): ");
+                    pos = scanner.nextInt();
+                    while ((!isValidPosition(pos)) || (!board.removeStone(turn, pos - 1))){
+                        board.print();
+                        System.out.println("Is not possible please try again.");
+                        System.out.print("Remove position (1-24): ");
+                        pos = scanner.nextInt();
+                    }
                     }
                 }
             else if (turn==Stone.BLACK && board.getBlackStones()>3) {
@@ -133,8 +141,16 @@ public class Main {
                     System.out.print("You may jump now Black:Choose position (1-24): ");
                     newpos = scanner.nextInt();
                 }
-                if (!board.jumpStone(pos - 1, newpos - 1, Stone.BLACK)) {
-                        continue;
+                if (board.jumpStone(pos - 1, newpos - 1, Stone.BLACK)) {
+                    board.print();
+                    System.out.print("Remove position (1-24): ");
+                    pos = scanner.nextInt();
+                    while ((!isValidPosition(pos)) || (!board.removeStone(turn, pos - 1))){
+                        board.print();
+                        System.out.println("Is not possible please try again.");
+                        System.out.print("Remove position (1-24): ");
+                        pos = scanner.nextInt();
+                    }
                     }
                 }
 
