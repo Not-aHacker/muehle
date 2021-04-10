@@ -79,11 +79,11 @@ public class Main {
                 }
 
                     System.out.print("Choose new position White (1-24): ");
-                    int newpos = scanner.nextInt();
-                for (newpos = scanner.nextInt();(!isValidPosition(newpos) || board.getPosStatus(newpos - 1) != Stone.EMPTY);){
+                    int newpos;
+                    for (newpos = scanner.nextInt();(!isValidPosition(newpos) || board.getPosStatus(newpos - 1) != Stone.EMPTY);){
                     board.print();
                     System.out.println("Is not possible please try again");
-                    System.out.print("You may jump now Black:Choose position (1-24): ");
+                    System.out.print("You may jump now White: Choose position (1-24): ");
                     pos = scanner.nextInt();
                 }
                 if (board.jumpStone(pos - 1, newpos - 1,Stone.WHITE)) {
@@ -103,7 +103,7 @@ public class Main {
                     System.out.print("Choose position Black (1-24): ");
                 for (pos = scanner.nextInt();(!isValidPosition(pos) || board.getPosStatus(pos - 1) != turn);){
                     board.print();
-                    System.out.print("Choose position White (1-24): ");
+                    System.out.print("Choose position Black (1-24): ");
                     pos = scanner.nextInt();
                 }
                     System.out.print("Choose direction Black (L,R,U,D): ");
@@ -134,8 +134,8 @@ public class Main {
                     pos = scanner.nextInt();
                 }
                     System.out.print("Choose new position Black (1-24): ");
-                    int newpos = scanner.nextInt();
-                for (newpos = scanner.nextInt();(!isValidPosition(newpos) || board.getPosStatus(newpos - 1) != turn);){
+                    int newpos;
+                    for (newpos = scanner.nextInt();(!isValidPosition(newpos) || board.getPosStatus(newpos - 1) != Stone.EMPTY);){
                     board.print();
                     System.out.println("Is not possible please try again");
                     System.out.print("You may jump now Black:Choose position (1-24): ");
